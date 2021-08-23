@@ -1,0 +1,31 @@
+body {
+    margin: 0px 3px 5px 3px;
+}
+#background-canvas {
+    display: block;
+    border: 1px solid black;
+    
+}
+
+#top{
+    position: relative;
+}
+
+#main-canvas {
+    display: block;
+    /* border: 1px solid red; */
+    position: absolute;
+    top: 20px;
+    left: 115px;
+}
+
+#start {
+    padding: 15px;
+    margin-left: 100px;
+    border-radius: 12px;
+    background-color: rgb(62, 62, 179);
+    color: white;
+    width: 120px;
+    font-family: calibri;
+    font-size: 20px;
+}
