@@ -1,3 +1,6 @@
+
+
+// import quotes from "./quotes.js";
 const mainCanvas = document.getElementById('main-canvas');
 let mainCtx = mainCanvas.getContext('2d');
 
@@ -9,6 +12,12 @@ let prompt5 = 'Press ENTER to Start.';
 let countDown = 3;
 let counter = 0;
 
+const  getRandomQuote = array => {
+    let randomIndex = Math.floor(Math.random() * (array.length - 1));
+    return array[randomIndex].quote;
+}
+
+// console.log(getRandomQuote(quotes));
 
 document.addEventListener('keydown', (e) => {
     if (e.keyCode === 32) {
@@ -84,7 +93,9 @@ window.addEventListener('keydown', (e) => {
                 countDown = 'GO!'
                 mainCtx.fillText(countDown, 600, 300);
                 clearInterval(timer);
-
+                setTimeout(function() {
+                    clearScreen();
+                }, 1000)
             }
            
         }, 1000);
@@ -92,6 +103,6 @@ window.addEventListener('keydown', (e) => {
     } else {
         return;
     }
-})
+})  
 
 
