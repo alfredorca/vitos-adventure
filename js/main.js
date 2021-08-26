@@ -33,12 +33,15 @@ let prompt3 =
 let prompt4 = "Are you READY?";
 let prompt5 = "Press ENTER to Start.";
 
+    mainCtx.font = "40px calibri";
+    mainCtx.fillStyle = "yellow";
+
 const getRandomQuote = (array) => {
   let randomIndex = Math.floor(Math.random() * (array.length - 1));
   return array[randomIndex].quote;
 };
 
-async function drawFirstHouse () {
+ function drawFirstHouse () {
     let y = 0;
     let houseAnimation = setInterval(  () => {
         clearScreen();
@@ -48,25 +51,70 @@ async function drawFirstHouse () {
         } else {
             mainCtx.clearRect(200, 400, 1200, 60);
             clearInterval(houseAnimation)
-             drawFirstTitle();
+            //  drawFirstTitle();
+            drawFirstPrompts1()
         }
     }, 20);
 }
 
 function drawFirstTitle() {
     let y = 0;
-    mainCtx.font = '50px calibri';
-    mainCtx.fillStyle = 'yellow'
-    let titleAnimation = setInterval(async () => {
-        mainCtx.clearRect(350, 0, 600, y)
+    let titleAnimation = setInterval( () => {
+        mainCtx.clearRect(400, 0, 600, y)
         mainCtx.fillText(`Vito's Adventure`, 400, y)
         if (y < 50) {
             y += 2;
         } else {
             mainCtx.fillText(`Vito's Adventure`, 400, y)
             clearInterval(titleAnimation)
+            // drawFirstPrompts();
         }
     }, 20);
+}
+
+function drawFirstPrompts1 () {
+  let y = 0;
+  let prompt5Animation =  setInterval(() => {
+    clearScreen()
+    mainCtx.fillText(prompt5, 100, y, 1100)
+    if (y < 420) {
+      y+=6;
+    } else {
+      mainCtx.fillText(prompt5, 100, y)
+       clearInterval(prompt5Animation)
+      drawFirstPrompts2();
+    }
+  }, 20);
+  
+}
+
+function drawFirstPrompts2() {
+  let y = 0;
+  let prompt4Animation = setInterval(() => {
+    mainCtx.clearRect(0, 0, 1100, 350)
+    mainCtx.fillText(prompt4, 100, y, 1100);
+    if (y < 350) {
+      y += 6;
+    } else {
+      mainCtx.fillText(prompt4, 100, y);
+      clearInterval(prompt4Animation);
+      drawFirstPrompts3()
+    }
+  }, 20);
+}
+
+function drawFirstPrompts3() {
+  let y = 0;
+  let prompt3Animation = setInterval(() => {
+    mainCtx.clearRect(0, 0, 1100, 320);
+    mainCtx.fillText(prompt3, 100, y, 1100);
+    if (y < 280) {
+      y += 6;
+    } else {
+      mainCtx.fillText(prompt3, 100, y);
+      clearInterval(prompt3Animation);
+    }
+  }, 20);
 }
 
 function drawHouse() {
@@ -91,7 +139,7 @@ function drawFood() {
 
 function drawTitle() {
   mainCtx.fillStyle = "yellow";
-  mainCtx.font = "50px monospace";
+  mainCtx.font = "50px calibri";
   mainCtx.fillText("Vito's Adventure!", 400, 50);
 }
 
@@ -174,20 +222,20 @@ function levelCompletionPrompt(time) {
   })
 }
 
-document.getElementById("start").onclick = async () => {
+document.getElementById("start").onclick =  () => {
   document.getElementById("start").style.display = "none";
   document.getElementById("clickHere").style.display = "none";
   clickButton = true;
 
-  // await drawFirstHouse()
-  drawHouse();
-  drawVito();
-  drawFood();
-  drawTitle();
-  drawPrompt();
+   drawFirstHouse()
+  // drawHouse();
+  // drawVito();
+  // drawFood();
+  // drawTitle();
+  // drawPrompt();
 };
 
-const clearScreen = () => mainCtx.clearRect(0, 0, 1300, 469);
+const clearScreen = () => mainCtx.clearRect(0, 0, 1200, 469);
 
 function renderNewQuote() {
     clearScreen();
