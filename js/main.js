@@ -120,7 +120,7 @@ function drawFirstHouse () {
             drawFirstPrompts1()
         }
     }, 20);
-    // music.play()
+    music.play()
 }
 
 function drawFirstTitle() {
@@ -339,12 +339,12 @@ document.getElementById("start").onclick =  () => {
   clickButton = true;
 
   // callIntro();
-  //  drawFirstHouse()
-  drawHouse();
-  drawVito();
-  drawFood();
-  drawTitle();
-  drawPrompt();
+   drawFirstHouse()
+  // drawHouse();
+  // drawVito();
+  // drawFood();
+  // drawTitle();
+  // drawPrompt();
 };
 
 const clearScreen = () => mainCtx.clearRect(0, 0, 1200, 469);
@@ -386,13 +386,13 @@ function timer () {
 window.addEventListener("keydown", (e) => {
   if (e.keyCode === 13 && clickButton == true && enterPressed == false && ableToStart == true) {
       enterPressed = true;
-    clearScreen();
+    
 
      timer();
 
      setTimeout(function () {
-        clearScreen();
         renderNewQuote();
+        // mainCtx.clearRect(0,0, mainCanvas.width, mainCanvas.height)
       }, 5000);
 
 
