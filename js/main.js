@@ -11,26 +11,26 @@ let levelFinished = false;
 let startDrawingTimer = false;
 let ableToStart = false;
 
-const music = new Audio("/POL-treasure-match-short.wav")
+const music = new Audio("./POL-treasure-match-short.wav")
 const vito = new Image();
-vito.src = "/images/Vitoready.png";
+vito.src = "./images/Vitoready.png";
 const house = new Image();
-house.src = "/images/vitos path.png";
+house.src = "./images/vitos path.png";
 const food = new Image();
-food.src = "/images/foodReady.png";
+food.src = "./images/foodReady.png";
 const vitoFront = new Image();
-vitoFront.src = '/images/VitoFront.png';
+vitoFront.src = './images/VitoFront.png';
 const vitoSteady = new Image();
-vitoSteady.src = '/images/VitoSteady.png';
+vitoSteady.src = './images/VitoSteady.png';
 const madDog = new Image();
-madDog.src = '/images/MadDog.png';
+madDog.src = './images/MadDog.png';
 const vitoStart = new Image();
-vitoStart.src = '/images/VitoStart.png'
+vitoStart.src = './images/VitoStart.png'
 
 let completedVito = new Image();
-completedVito.src = "/images/VitoGoodJob-removebg-preview.png";
+completedVito.src = "./images/VitoGoodJob-removebg-preview.png";
 let completed = new Image();
-completed.src = "/images/Mission-completed.png";
+completed.src = "./images/Mission-completed.png";
 
 const quoteDisplayElement = document.getElementById("quoteDisplay");
 const quoteInputElement = document.getElementById("quoteInput");
@@ -62,9 +62,9 @@ function callIntro() {
   let finalWidth = 800;
   let finalHeight = 250;
   const vitosAdventure = new Image();
-  vitosAdventure.src = '/images/vitos.png';
+  vitosAdventure.src = './images/vitos.png';
   const vitosAdventure1 = new Image();
-  vitosAdventure1.src = '/images/adventure.png';
+  vitosAdventure1.src = './images/adventure.png';
   let vitosInterval = setInterval(() => {
     finalWidth -= 1
     finalHeight -= 1
