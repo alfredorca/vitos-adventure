@@ -1,6 +1,8 @@
-export const quotes = [
+let name = 'arturo'
+
+const quotes = [
   {
-    quote: `Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma – which is living with the results of other people's thinking`,
+    quote: `Your time is limited, so don't waste it living someone else's life. Don't be trapped by dogma - which is living with the results of other people's thinking`,
     author: "Steve Jobs",
   },
   {
@@ -22,7 +24,9 @@ export const quotes = [
   {
     quote: `Success is not final; failure is not fatal: It is the courage to continue that counts.`,
     author: 'Winston S. Churchill'
-  },
+  }
+  // {
+  //   // quote : 'helloooooooooooooooooooo',
+  //   author: 'me'
+  // }
 ];
-
-

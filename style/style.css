@@ -7,6 +7,18 @@ body {
     
 }
 
+.container {
+    z-index: 1;
+    position: absolute;
+    top: 15vh;
+    left: 16.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+
 #top{
     position: relative;
 }
@@ -29,3 +41,55 @@ body {
     font-family: calibri;
     font-size: 20px;
 }
+
+#quoteDisplay {
+    color: yellow ;
+    font-size: 5.5vh;
+    font-family: calibri;
+    max-width: 70vw;
+    letter-spacing: 3px;
+    margin-left: calc(1rem + 2px);
+    margin-right: calc(1rem + 2px);
+}
+
+#quoteInput {
+    position: absolute;
+    top: 1vh;
+    left: 1vw;
+    max-width: 65vw;
+    min-width: 65vw;
+    min-height: 30vh;
+    font-family: calibri;
+    letter-spacing: 1.5px;
+    font-size: 5.5vh;
+    background-color: transparent;
+    color: transparent;
+    border-color: transparent;
+    outline: none;
+}
+
+
+
+.correct {
+    color: green;
+  }
+  
+  .incorrect {
+    color: red;
+    text-decoration: none;
+  }
+
+  /* .placeholder
+{
+    position: relative;
+}
+
+.placeholder::after
+{
+    position: absolute;
+    left: 5px;
+    top: 3px;
+    content: attr(data-placeholder);
+    pointer-events: none;
+    opacity: 0.6;
+} */

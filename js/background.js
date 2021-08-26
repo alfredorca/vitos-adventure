@@ -6,7 +6,7 @@ var backgroundCtx = backgroundCanvas.getContext("2d");
 function setupStars() {
     // constants
     const COLOR_SPACE = "black";
-    const COLOR_STARS = "white";
+    const COLOR_STARS = "yellow";
     const STAR_NUM = 200; // number of stars in the starfield
     const STAR_SIZE = 0.005; // max star size as a fraction of screen width
     const STAR_SPEED = 0.05; // fraction of screen width per second
@@ -71,7 +71,7 @@ function setupStars() {
             }
         
             // call the next frame
-            if (window.hidden) {
+            if (document.hidden) {
                 cancelAnimationFrame(loop);
             } else {
                 requestAnimationFrame(loop);
@@ -84,13 +84,6 @@ function setupStars() {
         }
     }
     
-    function checkWindow () {
-        if (window.open) {
-            requestAnimationFrame(setupStars)
-        } else {
-            cancelAnimationFrame(setupStars)
-        }
-    }
 
     // setInterval(checkWindow, 10);
     setupStars();   
