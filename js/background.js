@@ -6,7 +6,7 @@ var backgroundCtx = backgroundCanvas.getContext("2d");
 function setupStars() {
     // constants
     const COLOR_SPACE = "black";
-    const COLOR_STARS = "yellow";
+    const COLOR_STARS = "lightblue";
     const STAR_NUM = 200; // number of stars in the starfield
     const STAR_SIZE = 0.005; // max star size as a fraction of screen width
     const STAR_SPEED = 0.05; // fraction of screen width per second
