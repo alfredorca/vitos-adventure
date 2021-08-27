@@ -1,17 +1,25 @@
-const mainCanvas = document.getElementById("main-canvas");
-let mainCtx = mainCanvas.getContext("2d");
+/*
+  TODO: 
+  - Check other quotes selection
+  - Clear rect from the screen after typing (bug seen in after second iteration normally)
+*/
 
+const mainCanvas = document.getElementById("main-canvas"); // Set Canvas element
+let mainCtx = mainCanvas.getContext("2d"); // Define Canvas as 2-dimensional
+
+//General Variables and Flag Declarations
 let clickButton = false;
 let enterPressed = false;
 let timeLeft = 0;
 startTime = 0;
-let countDown = 3;
 let counter = 0;
 let levelFinished = false;
 let startDrawingTimer = false;
 let ableToStart = false;
 
-const music = new Audio("./POL-treasure-match-short.wav")
+// Music and Images Declarations
+const music = new Audio("./sounds/POL-treasure-match-short.wav");
+const introMusic = new Audio("./sounds/StarWars.mp3");
 const vito = new Image();
 vito.src = "./images/Vitoready.png";
 const house = new Image();
@@ -19,25 +27,25 @@ house.src = "./images/vitos path.png";
 const food = new Image();
 food.src = "./images/foodReady.png";
 const vitoFront = new Image();
-vitoFront.src = './images/VitoFront.png';
+vitoFront.src = "./images/VitoFront.png";
 const vitoSteady = new Image();
-vitoSteady.src = './images/VitoSteady.png';
+vitoSteady.src = "./images/VitoSteady.png";
 const madDog = new Image();
-madDog.src = './images/MadDog.png';
+madDog.src = "./images/MadDog.png";
 const vitoStart = new Image();
-vitoStart.src = './images/VitoStart.png'
-
+vitoStart.src = "./images/VitoStart.png";
 let completedVito = new Image();
 completedVito.src = "./images/VitoGoodJob-removebg-preview.png";
 let completed = new Image();
 completed.src = "./images/Mission-completed.png";
 
+//Quote Elements Declarations
 const quoteDisplayElement = document.getElementById("quoteDisplay");
 const quoteInputElement = document.getElementById("quoteInput");
-quoteInputElement.style.display = 'none';
-quoteDisplayElement.style.display = 'none';
+quoteInputElement.style.display = "none";
+quoteDisplayElement.style.display = "none";
 
-
+//Prompt Declarations
 let prompt1 =
   "Hello adventurer! Vito is a 3-lbs chihuahua. Chihuahuas need to eat several times a day because their ";
 let prompt2 =
@@ -47,19 +55,21 @@ let prompt3 =
 let prompt4 = "Are you READY?";
 let prompt5 = "Press ENTER to Start.";
 
-    mainCtx.font = "40px calibri";
-    mainCtx.fillStyle = "yellow";
+//Setting Global Font
+mainCtx.font = "40px Candara";
+mainCtx.fillStyle = "yellow";
 
+//Get Random Quote from Array
 const getRandomQuote = (array) => {
   let randomIndex = Math.floor(Math.random() * (array.length - 1));
   return array[randomIndex].quote;
 };
 
- 
+//Draw Introduction
 function callIntro() {
-  music.play()
-  let startx = 300;
-  let starty = 200;
+  // introMusic.play()
+  let startx = 300; //Initial Position X for Title
+  let starty = 200; // Initial Position Y for Title
   let finalWidth = 800;
   let finalHeight = 250;
   const vitosAdventure = new Image();
@@ -79,7 +89,7 @@ function callIntro() {
       finalHeight
     );
     if (finalHeight === 100) clearInterval(vitosInterval);
-  }, 30);
+  }, 10);
 
   setTimeout(() => {
     let counter1 = 0;
@@ -125,38 +135,29 @@ function callIntro() {
         clearInterval(movingPrompts);
         ableToStart = true;
       }
-    }, 30);
-  }, 5000);
+    }, 10);
+  }, 2000);
 }
 
-
 function drawHouse() {
-
-  
-    mainCtx.drawImage(house, 100, 468);
- 
-
+  mainCtx.drawImage(house, 100, 468);
 }
 
 function drawVito() {
-
-mainCtx.drawImage(vito, 130, 578, 100, 100);
-
+  mainCtx.drawImage(vito, 130, 578, 100, 100);
 }
 
 function drawFood() {
-  
-    mainCtx.drawImage(food, 1120, 518, 100, 100);
- 
+  mainCtx.drawImage(food, 1120, 518, 100, 100);
 }
 
-function drawMadDog () {
-  mainCtx.drawImage(madDog, 130, 470, 100, 100)
+function drawMadDog() {
+  mainCtx.drawImage(madDog, 130, 470, 100, 100);
 }
 
 function drawTitle() {
   mainCtx.fillStyle = "yellow";
-  mainCtx.font = "50px calibri";
+  mainCtx.font = "50px Candara";
   mainCtx.fillText("Vito's Adventure!", 400, 50);
 }
 
@@ -173,11 +174,11 @@ function drawPrompt() {
 
 async function drawTimer() {
   mainCtx.fillStyle = "yellow";
-  mainCtx.font = "40px calibri";
+  mainCtx.font = "40px Candara";
   let startTime = 1;
-  let typingTime = setInterval( () => {
+  let typingTime = setInterval(() => {
     mainCtx.fillText(startTime, 1200, 50);
-     mainCtx.clearRect(1100, 00, 1250, 100);
+    mainCtx.clearRect(1100, 00, 1250, 100);
     startTime = startTime < 10 ? "0" + startTime : startTime;
     mainCtx.fillText(startTime, 1200, 50);
     startTime++;
@@ -189,9 +190,9 @@ async function drawTimer() {
   }, 1000);
 }
 
-function levelCompletionAnimation () {
-  quoteInputElement.style.display = 'none';
-  quoteDisplayElement.style.display = 'none';
+function levelCompletionAnimation() {
+  quoteInputElement.style.display = "none";
+  quoteDisplayElement.style.display = "none";
   let completedVito = new Image();
   completedVito.src = "/images/VitoGoodJob-removebg-preview.png";
   let completed = new Image();
@@ -199,57 +200,69 @@ function levelCompletionAnimation () {
 }
 
 function levelCompletion() {
-    quoteInputElement.style.display = 'none';
-    quoteDisplayElement.style.display = 'none';
+  quoteInputElement.style.display = "none";
+  quoteDisplayElement.style.display = "none";
+  mainCtx.drawImage(completedVito, 200, 10, 600, 250);
+  mainCtx.drawImage(completed, 400, 150, 700, 300);
 
-    // completedVito.addEventListener("load", () => {
-      mainCtx.drawImage(completedVito, 200, 10, 600, 250);
-      mainCtx.drawImage(completed, 400, 150, 700, 300);
-    // });
 
-    setTimeout(() => {
-        clearScreen();
-        levelCompletionPrompt(timeLeft)
-    }, 4000);
-  }
+  setTimeout(() => {
+    clearScreen();
+    levelCompletionPrompt(timeLeft);
+  }, 4000);
+}
 
 function levelCompletionPrompt(time) {
   let completionPrompt = "Congratulations!";
-  let completionPrompt2 = "You typed all the letters correctly and got Vito to his food!"
+  let completionPrompt2 =
+    "You typed all the letters correctly and got Vito to his food!";
   let completionPrompt3 = `You took ${time} seconds`;
   let completionPrompt4 = `Press ENTER To Continue`;
   let completionPrompt5 = `OR`;
-  let completionPrompt6 = `Press ESC To End Game.`
+  let completionPrompt6 = `Press ESC To End Game.`;
 
   mainCtx.fillStyle = "yellow";
-  mainCtx.font = "50px calibri";
+  mainCtx.font = "50px Candara";
   mainCtx.fillText(completionPrompt, 490, 80);
   mainCtx.fillText(completionPrompt2, 120, 200, 1100);
   mainCtx.fillText(completionPrompt3, 120, 300, 1100);
-  mainCtx.font = '25px Calibri'
-  mainCtx.fillText("(press ENTER to continue...)", 490, 370)
+  mainCtx.font = "25px Candara";
+  mainCtx.fillText("(press ENTER to continue...)", 490, 370);
 
-  document.addEventListener('keydown', (e) => {
-      if (e.keyCode === 13) {
-        clearScreen();
-        mainCtx.font = "50px calibri"
-        mainCtx.fillText(completionPrompt4, 110, 180);
-        mainCtx.fillText(completionPrompt5, 620, 250);
-        mainCtx.fillText(completionPrompt6, 690, 320);
-        
-          startDrawingTimer = false;
-        
-        document.addEventListener('keydown', (e) => {
-    if (e.keyCode === 13) {
-        levelFinished = false;
-        renderNewQuote();
+  ableToStart = false;
+  enterPressed = true;
+
+  document.addEventListener("keydown", (e) => {
+    if (e.keyCode === 13 && ableToStart == false && enterPressed == true) {
+      clearScreen();
+      mainCtx.font = "50px Candara";
+      mainCtx.fillText(completionPrompt4, 110, 180);
+      mainCtx.fillText(completionPrompt5, 620, 250);
+      mainCtx.fillText(completionPrompt6, 690, 320);
+      ableToStart = true;
+      enterPressed = false;
+
+      // startDrawingTimer = false;
+      // enterPressed = false;
+      // levelFinished = false;
+
+      document.addEventListener("keydown", (e) => {
+        if (e.keyCode === 13 && levelFinished == true && enterPressed == false && ableToStart == true) {
+          levelFinished = false;
+          enterPressed = true;
+          
+          timer()
+          setTimeout(function () {
+            renderNewQuote();
+            return;
+          }, 5000);
+        }
+      });
     }
-})
-      }
-  })
+  });
 }
 
-document.getElementById("start").onclick =  () => {
+document.getElementById("start").onclick = () => {
   document.getElementById("start").style.display = "none";
   document.getElementById("clickHere").style.display = "none";
   clickButton = true;
@@ -265,52 +278,60 @@ document.getElementById("start").onclick =  () => {
 
 const clearScreen = () => mainCtx.clearRect(0, 0, 1300, 469);
 
+//Draw new Quote onto the Screen.
 function renderNewQuote() {
-    clearScreen();
-    quoteDisplayElement.style.display = 'block'
-    quoteInputElement.style.display = 'block'
-    mainCtx.font = "40px calibri";
-    mainCtx.fillText("00", 1200, 50);
-    const quote = getRandomQuote(quotes);
-    quoteDisplayElement.innerHTML = "";
-    quote.split("").forEach((character) => {
-      const characterSpan = document.createElement("span");
-      characterSpan.innerText = character;
-      quoteDisplayElement.appendChild(characterSpan);
-      quoteInputElement.focus();
-      quoteInputElement.select();
-    });
-    quoteInputElement.value = null;
-  }
+  clearScreen();
+  quoteDisplayElement.style.display = "block";
+  quoteInputElement.style.display = "block";
+  mainCtx.font = "50px Candara";
+  mainCtx.fillText("00", 1200, 50);
+  let quote = getRandomQuote(quotes);
+  quoteDisplayElement.innerHTML = "";
+  quote.split("").forEach((character) => {
+    const characterSpan = document.createElement("span");
+    characterSpan.innerText = character;
+    quoteDisplayElement.appendChild(characterSpan);
+    quoteInputElement.focus();
+    quoteInputElement.select();
+  });
+  quoteInputElement.value = null;
+  // ableToStart = false;
+  // enterPressed = true;
+}
 
-function timer () {
-    let beginningTimer = setInterval(() => {
-        clearScreen();
-        mainCtx.font = "150px calibri";
-        mainCtx.fillText(countDown, 600, 270);
-        countDown--;
-        if (countDown < 0) {
-          clearScreen();
-          countDown = "GO!";
-          mainCtx.fillText(countDown, 540, 270);
-          clearInterval(beginningTimer);
- 
-        }
-      }, 1000);
+function timer() {
+  let countDown = 3;
+  let beginningTimer = setInterval(() => {
+    clearScreen();
+    mainCtx.font = "150px Candara";
+    mainCtx.fillText(countDown, 600, 270);
+    countDown--;
+    if (countDown < 0) {
+      clearScreen();
+      countDown = "GO!";
+      mainCtx.fillText(countDown, 540, 270);
+      clearInterval(beginningTimer);
+    }
+  }, 1000);
 }
 
 window.addEventListener("keydown", (e) => {
-  if (e.keyCode === 13 && clickButton == true && enterPressed == false && ableToStart == true) {
-      enterPressed = true;
-    
+  if (
+    e.keyCode === 13 &&
+    clickButton == true &&
+    enterPressed == false &&
+    ableToStart == true &&
+    levelFinished == false
+  ) {
+    enterPressed = true;
+    ableToStart = false;
+    introMusic.pause();
 
-     timer();
+    timer();
 
-     setTimeout(function () {
-        renderNewQuote();
-      }, 5000);
-
-
+    setTimeout(function () {
+      renderNewQuote();
+    }, 5000);
 
     quoteInputElement.addEventListener("input", () => {
       const arrayQuote = quoteDisplayElement.querySelectorAll("span");
@@ -339,31 +360,31 @@ window.addEventListener("keydown", (e) => {
       });
 
       function updateVito() {
-        let vitosPathx = 130//Math.floor(1300/5);
+        let vitosPathx = 130; //Math.floor(1300/5);
         let vitosPathy = 578;
         let vitosPosition = 0;
-        for (let i = 0; i < arrayValue.length; i++){    
-            mainCtx.clearRect(0, 0, 1200, mainCanvas.height)
-            drawHouse();
-            drawFood();
-            drawMadDog();
-            if (quoteDisplayElement.childNodes[i].className === 'correct') {
-            vitosPathx += (960/arrayQuote.length); 
-            vitosPathy -= (60/arrayQuote.length);
-            vitosPosition++
+        for (let i = 0; i < arrayValue.length; i++) {
+          mainCtx.clearRect(0, 0, 1200, mainCanvas.height);
+          drawHouse();
+          drawFood();
+          drawMadDog();
+          if (quoteDisplayElement.childNodes[i].className === "correct") {
+            vitosPathx += 960 / arrayQuote.length;
+            vitosPathy -= 60 / arrayQuote.length;
+            vitosPosition++;
 
             if (vitosPosition % 2 == 0) {
               mainCtx.drawImage(vito, vitosPathx, vitosPathy, 100, 100);
             } else {
               mainCtx.drawImage(vitoSteady, vitosPathx, vitosPathy, 100, 100);
             }
-            } else {
-                mainCtx.drawImage(vito, vitosPathx, vitosPathy, 100, 100);
-            }
+          } else {
+            mainCtx.drawImage(vito, vitosPathx, vitosPathy, 100, 100);
+          }
         }
-    }
+      }
 
-    updateVito();
+      updateVito();
 
       if (correct) {
         levelFinished = true;
@@ -377,4 +398,3 @@ window.addEventListener("keydown", (e) => {
     return;
   }
 });
-

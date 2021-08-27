@@ -48,11 +48,10 @@ body {
 
 #quoteDisplay {
     color: yellow ;
-    font-size: 5.5vh;
+    font-size: 7vh;
     max-width: 70vw;
     letter-spacing: 3px;
-    margin-left: calc(1rem + 2px);
-    margin-right: calc(1rem + 2px);
+    margin-right: 1rem;
 }
 
 #quoteInput {
@@ -71,22 +70,6 @@ body {
     outline: none;
 }
 
-#title {
-    font-size: 150px;
-    position: absolute;
-    top: 25vh;
-    left: 19vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-#title p {
-    color: yellow;
-    margin: 0;
-    font-family: 'Star Jedi';
-}
 
 
 .correct {
