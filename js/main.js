@@ -16,6 +16,8 @@ let counter = 0;
 let levelFinished = false;
 let startDrawingTimer = false;
 let ableToStart = false;
+let enterKeyCounter = 0;
+let quoteLength = 0;
 
 // Music and Images Declarations
 const music = new Audio("./sounds/POL-treasure-match-short.wav");
@@ -220,6 +222,12 @@ function levelCompletionPrompt(time) {
   let completionPrompt4 = `Press ENTER To Continue`;
   let completionPrompt5 = `OR`;
   let completionPrompt6 = `Press ESC To End Game.`;
+  let totalWords = quoteInputElement.value.split(' ')
+  console.log("Total Words", totalWords);
+  let averageWords = Math.round(Number((totalWords.length / timeLeft) * 60));
+  console.log(quoteInputElement.value)
+  console.log(timeLeft)
+  let awpm = `Your Average WPM: ${averageWords}`;
 
   mainCtx.fillStyle = "yellow";
   mainCtx.font = "50px Candara";
@@ -233,34 +241,57 @@ function levelCompletionPrompt(time) {
   enterPressed = true;
 
   document.addEventListener("keydown", (e) => {
-    if (e.keyCode === 13 && ableToStart == false && enterPressed == true) {
+    if (e.keyCode === 13 && ableToStart == false && enterPressed == true && levelFinished == true) {
       clearScreen();
+      let hello = awpm;
+      console.log(hello)
+      mainCtx.font = "70px Candara";
+      mainCtx.fillText(awpm, 200, 180, 900)
       mainCtx.font = "50px Candara";
-      mainCtx.fillText(completionPrompt4, 110, 180);
-      mainCtx.fillText(completionPrompt5, 620, 250);
-      mainCtx.fillText(completionPrompt6, 690, 320);
+      mainCtx.fillText(completionPrompt4, 100, 320);
+      mainCtx.fillText(completionPrompt5, 650, 370);
+      mainCtx.fillText(completionPrompt6, 750, 420);
       ableToStart = true;
       enterPressed = false;
+      enterKeyCounter++;
+      setTimeout(() => {
+        levelFinished = false;
+        startDrawingTimer = false;
+      }, 30);
+      // document.addEventListener('keydown', (e) => {
+        // if (e.keyCode === 13 && ableToStart == true && enterPressed == false && levelFinished == true) {
+          
+          
+        // }
+      // })
 
       // startDrawingTimer = false;
       // enterPressed = false;
       // levelFinished = false;
-
-      document.addEventListener("keydown", (e) => {
-        if (e.keyCode === 13 && levelFinished == true && enterPressed == false && ableToStart == true) {
-          levelFinished = false;
-          enterPressed = true;
+      // document.addEventListener("keydown", (e) => {
+      //   if (e.keyCode === 13 && ableToStart == true && enterPressed == false){
+      //     alert('This is being fired')
+      //     levelFinished = false;
+      //     ableToStart = false;
           
-          timer()
-          setTimeout(function () {
-            renderNewQuote();
-            return;
-          }, 5000);
-        }
-      });
+      //     timer()
+      //     setTimeout(function () {
+      //       renderNewQuote();
+      //       // return;
+      //     }, 5000);
+      //     enterKeyCounter = 0;
+      //   }
+          
+      //   });
     }
   });
+
+  
+  
+  
 }
+
+
 
 document.getElementById("start").onclick = () => {
   document.getElementById("start").style.display = "none";
@@ -363,12 +394,12 @@ window.addEventListener("keydown", (e) => {
         let vitosPathx = 130; //Math.floor(1300/5);
         let vitosPathy = 578;
         let vitosPosition = 0;
-        for (let i = 0; i < arrayValue.length; i++) {
+        for (let i = 0; i < arrayValue.length -1; i++) {
           mainCtx.clearRect(0, 0, 1200, mainCanvas.height);
           drawHouse();
           drawFood();
           drawMadDog();
-          if (quoteDisplayElement.childNodes[i].className === "correct") {
+          if (quoteDisplayElement.childNodes[i].classList.contains('correct')) {
             vitosPathx += 960 / arrayQuote.length;
             vitosPathy -= 60 / arrayQuote.length;
             vitosPosition++;
