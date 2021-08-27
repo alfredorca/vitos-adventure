@@ -22,6 +22,7 @@ let quoteLength = 0;
 // Music and Images Declarations
 const music = new Audio("./sounds/POL-treasure-match-short.wav");
 const introMusic = new Audio("./sounds/StarWars.mp3");
+const completeMusic = new Audio ("./sounds/LevelComplete.wav")
 const vito = new Image();
 vito.src = "./images/Vitoready.png";
 const house = new Image();
@@ -69,7 +70,7 @@ const getRandomQuote = (array) => {
 
 //Draw Introduction
 function callIntro() {
-  // introMusic.play()
+  introMusic.play()
   let startx = 300; //Initial Position X for Title
   let starty = 200; // Initial Position Y for Title
   let finalWidth = 800;
@@ -91,7 +92,7 @@ function callIntro() {
       finalHeight
     );
     if (finalHeight === 100) clearInterval(vitosInterval);
-  }, 10);
+  }, 30);
 
   setTimeout(() => {
     let counter1 = 0;
@@ -137,8 +138,8 @@ function callIntro() {
         clearInterval(movingPrompts);
         ableToStart = true;
       }
-    }, 10);
-  }, 2000);
+    }, 30);
+  }, 5000);
 }
 
 function drawHouse() {
@@ -163,17 +164,6 @@ function drawTitle() {
   mainCtx.fillText("Vito's Adventure!", 400, 50);
 }
 
-function drawPrompt() {
-  mainCtx.fillStyle = "yellow";
-  mainCtx.font = "30px";
-  mainCtx.fillText(prompt1, 100, 120, 1100);
-  mainCtx.fillText(prompt2, 100, 200, 1100);
-  mainCtx.fillText(prompt3, 100, 280, 1100);
-  mainCtx.fillText(prompt4, 100, 350, 1100);
-  mainCtx.fillText(prompt5, 100, 420, 1100);
-  ableToStart = true;
-}
-
 async function drawTimer() {
   mainCtx.fillStyle = "yellow";
   mainCtx.font = "40px Candara";
@@ -189,6 +179,7 @@ async function drawTimer() {
       timeLeft = timeLeft < 10 ? "0" + timeLeft : timeLeft;
       clearInterval(typingTime);
     }
+    if (startTime % 3 == 0) music.play()
   }, 1000);
 }
 
@@ -206,7 +197,8 @@ function levelCompletion() {
   quoteDisplayElement.style.display = "none";
   mainCtx.drawImage(completedVito, 200, 10, 600, 250);
   mainCtx.drawImage(completed, 400, 150, 700, 300);
-
+  music.pause();
+  completeMusic.play();
 
   setTimeout(() => {
     clearScreen();
@@ -222,11 +214,11 @@ function levelCompletionPrompt(time) {
   let completionPrompt4 = `Press ENTER To Continue`;
   let completionPrompt5 = `OR`;
   let completionPrompt6 = `Press ESC To End Game.`;
-  let totalWords = quoteInputElement.value.split(' ')
+  let totalWords = quoteInputElement.value.split(" ");
   console.log("Total Words", totalWords);
   let averageWords = Math.round(Number((totalWords.length / timeLeft) * 60));
-  console.log(quoteInputElement.value)
-  console.log(timeLeft)
+  console.log(quoteInputElement.value);
+  console.log(timeLeft);
   let awpm = `Your Average WPM: ${averageWords}`;
 
   mainCtx.fillStyle = "yellow";
@@ -241,12 +233,17 @@ function levelCompletionPrompt(time) {
   enterPressed = true;
 
   document.addEventListener("keydown", (e) => {
-    if (e.keyCode === 13 && ableToStart == false && enterPressed == true && levelFinished == true) {
+    if (
+      e.keyCode === 13 &&
+      ableToStart == false &&
+      enterPressed == true &&
+      levelFinished == true
+    ) {
       clearScreen();
       let hello = awpm;
-      console.log(hello)
+      console.log(hello);
       mainCtx.font = "70px Candara";
-      mainCtx.fillText(awpm, 200, 180, 900)
+      mainCtx.fillText(awpm, 200, 180, 900);
       mainCtx.font = "50px Candara";
       mainCtx.fillText(completionPrompt4, 100, 320);
       mainCtx.fillText(completionPrompt5, 650, 370);
@@ -258,40 +255,9 @@ function levelCompletionPrompt(time) {
         levelFinished = false;
         startDrawingTimer = false;
       }, 30);
-      // document.addEventListener('keydown', (e) => {
-        // if (e.keyCode === 13 && ableToStart == true && enterPressed == false && levelFinished == true) {
-          
-          
-        // }
-      // })
-
-      // startDrawingTimer = false;
-      // enterPressed = false;
-      // levelFinished = false;
-      // document.addEventListener("keydown", (e) => {
-      //   if (e.keyCode === 13 && ableToStart == true && enterPressed == false){
-      //     alert('This is being fired')
-      //     levelFinished = false;
-      //     ableToStart = false;
-          
-      //     timer()
-      //     setTimeout(function () {
-      //       renderNewQuote();
-      //       // return;
-      //     }, 5000);
-      //     enterKeyCounter = 0;
-      //   }
-          
-      //   });
     }
   });
-
-  
-  
-  
 }
-
-
 
 document.getElementById("start").onclick = () => {
   document.getElementById("start").style.display = "none";
@@ -299,12 +265,6 @@ document.getElementById("start").onclick = () => {
   clickButton = true;
 
   callIntro();
-  //  drawFirstHouse()
-  // drawHouse();
-  // drawVito();
-  // drawFood();
-  // drawTitle();
-  // drawPrompt();
 };
 
 const clearScreen = () => mainCtx.clearRect(0, 0, 1300, 469);
@@ -326,8 +286,6 @@ function renderNewQuote() {
     quoteInputElement.select();
   });
   quoteInputElement.value = null;
-  // ableToStart = false;
-  // enterPressed = true;
 }
 
 function timer() {
@@ -357,6 +315,8 @@ window.addEventListener("keydown", (e) => {
     enterPressed = true;
     ableToStart = false;
     introMusic.pause();
+    completeMusic.pause()
+    music.play();
 
     timer();
 
@@ -391,15 +351,15 @@ window.addEventListener("keydown", (e) => {
       });
 
       function updateVito() {
-        let vitosPathx = 130; //Math.floor(1300/5);
+        let vitosPathx = 130;
         let vitosPathy = 578;
         let vitosPosition = 0;
-        for (let i = 0; i < arrayValue.length -1; i++) {
+        for (let i = 0; i < arrayValue.length - 1; i++) {
           mainCtx.clearRect(0, 0, 1200, mainCanvas.height);
           drawHouse();
           drawFood();
           drawMadDog();
-          if (quoteDisplayElement.childNodes[i].classList.contains('correct')) {
+          if (quoteDisplayElement.childNodes[i].classList.contains("correct")) {
             vitosPathx += 960 / arrayQuote.length;
             vitosPathy -= 60 / arrayQuote.length;
             vitosPosition++;
