@@ -57,188 +57,101 @@ const getRandomQuote = (array) => {
 
  
 function callIntro() {
+  music.play()
   let startx = 300;
   let starty = 200;
   let finalWidth = 800;
   let finalHeight = 250;
   const vitosAdventure = new Image();
-  vitosAdventure.src = './images/vitos.png';
+  vitosAdventure.src = "./images/vitos.png";
   const vitosAdventure1 = new Image();
-  vitosAdventure1.src = './images/adventure.png';
+  vitosAdventure1.src = "./images/adventure.png";
   let vitosInterval = setInterval(() => {
-    finalWidth -= 1
-    finalHeight -= 1
-    mainCtx.clearRect(0, 0, mainCanvas.width, mainCanvas.height)
+    finalWidth -= 1;
+    finalHeight -= 1;
+    mainCtx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
     mainCtx.drawImage(vitosAdventure, startx, starty, finalWidth, finalHeight);
-    mainCtx.drawImage(vitosAdventure1, startx - 100, starty + 100, finalWidth + 200, finalHeight)
-    if (finalHeight === 100) clearInterval(vitosInterval)
-    // mainCtx.drawImage(vitosAdventure1, );
-  }, 10);
-  
+    mainCtx.drawImage(
+      vitosAdventure1,
+      startx - 100,
+      starty + 100,
+      finalWidth + 200,
+      finalHeight
+    );
+    if (finalHeight === 100) clearInterval(vitosInterval);
+  }, 30);
+
   setTimeout(() => {
     let counter1 = 0;
     let movingPrompts = setInterval(() => {
-      mainCtx.clearRect(0, 0, mainCanvas.width, mainCanvas.height)
-      mainCtx.drawImage(vitosAdventure, startx, starty - counter1, finalWidth, finalHeight)
-      mainCtx.drawImage(vitosAdventure1, startx - 100, (starty + 100) - counter1, finalWidth + 200, finalHeight)
-      mainCtx.fillText(prompt1, 100, (starty + 500) - counter1, 1100)
-      counter1 += 2
+      mainCtx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+      mainCtx.drawImage(
+        vitosAdventure,
+        startx,
+        starty - counter1,
+        finalWidth,
+        finalHeight
+      );
+      mainCtx.drawImage(
+        vitosAdventure1,
+        startx - 100,
+        starty + 100 - counter1,
+        finalWidth + 200,
+        finalHeight
+      );
+      mainCtx.fillText(prompt1, 100, starty + 500 - counter1, 1100);
+      counter1 += 2;
+      if (counter1 > 80) {
+        mainCtx.fillText(prompt2, 100, starty + 580 - counter1, 1100);
+      }
+      if (counter1 > 160) {
+        mainCtx.fillText(prompt3, 100, starty + 660 - counter1, 1100);
+      }
+      if (counter1 > 240) {
+        mainCtx.fillText(prompt4, 100, starty + 740 - counter1, 1100);
+      }
+      if (counter1 > 320) {
+        mainCtx.fillText(prompt5, 100, starty + 820 - counter1, 1100);
+      }
+
+      if (counter1 > 370) {
+        mainCtx.drawImage(house, 100, starty + 870 - counter1);
+        mainCtx.drawImage(vitoFront, 140, starty + 980 - counter1, 100, 100);
+        mainCtx.drawImage(madDog, 130, starty + 870 - counter1, 100, 100);
+        mainCtx.drawImage(food, 1120, starty + 920 - counter1, 100, 100);
+      }
+
       if (counter1 > 600) {
         clearInterval(movingPrompts);
-        introduction();
+        ableToStart = true;
       }
     }, 30);
-  }, 3500);
-  // let drawFirstBackground = setInterval(() => {
-  //   mainCtx.clearRect(0,0, mainCanvas.width, mainCanvas.height)
-  //   mainCtx.drawImage(vitoStart, 500, y, 300, 500)
-  //   y += 8
-  //   if (y > mainCanvas.height) {
-  //     clearInterval(drawFirstBackground)
-  //   }
-  // }, 70);
-  
-  // setTimeout(() => {
-  //     mainCtx.drawImage()
-  // }, 1500);
-  
-}
-
-function drawFirstHouse () {
-    let y = 0;
-    let houseAnimation = setInterval(  () => {
-        clearScreen();
-        mainCtx.drawImage(house, 100, y - 110)
-        mainCtx.drawImage(vitoFront, 130, y, 100, 100)
-        mainCtx.drawImage(food, 1120, y-60, 100, 100)
-        mainCtx.drawImage(madDog, 130, y-100, 100, 100)
-        if(y < 580) {
-            y += 6;
-        } else {
-            mainCtx.clearRect(200, 400, 1200, 60);
-            clearInterval(houseAnimation)
-            drawFirstPrompts1()
-        }
-    }, 20);
-    music.play()
-}
-
-function drawFirstTitle() {
-    let y = 0;
-    let titleAnimation = setInterval( () => {
-        mainCtx.clearRect(400, 0, 600, y)
-        mainCtx.fillText(`Vito's Adventure`, 490, y)
-        if (y < 50) {
-            y += 2;
-        } else {
-            mainCtx.fillText(`Vito's Adventure`, 490, y)
-            clearInterval(titleAnimation)
-        }
-    }, 20);
-
-    ableToStart = true;
-
-}
-
-function drawFirstPrompts1 () {
-  let y = 0;
-  let prompt5Animation =  setInterval(() => {
-    clearScreen()
-    mainCtx.fillText(prompt5, 100, y, 1100)
-    if (y < 420) {
-      y+=7;
-    } else {
-      mainCtx.fillText(prompt5, 100, y)
-       clearInterval(prompt5Animation)
-      drawFirstPrompts2();
-    }
-  }, 20);
-  
-}
-
-function drawFirstPrompts2() {
-  let y = 0;
-  let prompt4Animation = setInterval(() => {
-    mainCtx.clearRect(0, 0, 1100, 350)
-    mainCtx.fillText(prompt4, 100, y, 1100);
-    if (y < 350) {
-      y += 8;
-    } else {
-      mainCtx.fillText(prompt4, 100, y);
-      clearInterval(prompt4Animation);
-      drawFirstPrompts3()
-    }
-  }, 20);
-}
-
-function drawFirstPrompts3() {
-  let y = 0;
-  let prompt3Animation = setInterval(() => {
-    mainCtx.clearRect(0, 0, 1200, 320);
-    mainCtx.fillText(prompt3, 100, y, 1100);
-    if (y < 280) {
-      y += 9;
-    } else {
-      // mainCtx.fillText(prompt3, 100, y);
-      clearInterval(prompt3Animation);
-      drawFirstPrompts4()
-    }
-  }, 20);
-}
-
-function drawFirstPrompts4() {
-  let y = 0;
-  let prompt4Animation = setInterval(() => {
-    mainCtx.clearRect(0, 0, 1200, 250);
-    mainCtx.fillText(prompt2, 100, y, 1100);
-    if (y < 200) {
-      y += 10;
-    } else {
-      // mainCtx.fillText(prompt3, 100, y);
-      clearInterval(prompt4Animation);
-      drawFirstPrompts5()
-    }
-  }, 20);
-}
-
-function drawFirstPrompts5() {
-  let y = 0;
-  let prompt5Animation = setInterval(() => {
-    mainCtx.clearRect(0, 0, 1200, 140);
-    mainCtx.fillText(prompt1, 100, y, 1100);
-    if (y < 120) {
-      y += 11;
-    } else {
-      // mainCtx.fillText(prompt3, 100, y);
-      clearInterval(prompt5Animation);
-      drawFirstTitle()
-    }
-  }, 20);
+  }, 5000);
 }
 
 
 function drawHouse() {
 
   
-    mainCtx.drawImage(house, 100, 470);
+    mainCtx.drawImage(house, 100, 468);
  
 
 }
 
 function drawVito() {
 
-mainCtx.drawImage(vito, 130, 580, 100, 100);
+mainCtx.drawImage(vito, 130, 578, 100, 100);
 
 }
 
 function drawFood() {
   
-    mainCtx.drawImage(food, 1120, 520, 100, 100);
+    mainCtx.drawImage(food, 1120, 518, 100, 100);
  
 }
 
 function drawMadDog () {
-  mainCtx.drawImage(madDog, 130, 480, 100, 100)
+  mainCtx.drawImage(madDog, 130, 470, 100, 100)
 }
 
 function drawTitle() {
@@ -323,6 +236,9 @@ function levelCompletionPrompt(time) {
         mainCtx.fillText(completionPrompt4, 110, 180);
         mainCtx.fillText(completionPrompt5, 620, 250);
         mainCtx.fillText(completionPrompt6, 690, 320);
+        
+          startDrawingTimer = false;
+        
         document.addEventListener('keydown', (e) => {
     if (e.keyCode === 13) {
         levelFinished = false;
@@ -338,8 +254,8 @@ document.getElementById("start").onclick =  () => {
   document.getElementById("clickHere").style.display = "none";
   clickButton = true;
 
-  // callIntro();
-   drawFirstHouse()
+  callIntro();
+  //  drawFirstHouse()
   // drawHouse();
   // drawVito();
   // drawFood();
@@ -347,7 +263,7 @@ document.getElementById("start").onclick =  () => {
   // drawPrompt();
 };
 
-const clearScreen = () => mainCtx.clearRect(0, 0, 1200, 469);
+const clearScreen = () => mainCtx.clearRect(0, 0, 1300, 469);
 
 function renderNewQuote() {
     clearScreen();
@@ -392,7 +308,6 @@ window.addEventListener("keydown", (e) => {
 
      setTimeout(function () {
         renderNewQuote();
-        // mainCtx.clearRect(0,0, mainCanvas.width, mainCanvas.height)
       }, 5000);
 
 
@@ -425,14 +340,13 @@ window.addEventListener("keydown", (e) => {
 
       function updateVito() {
         let vitosPathx = 130//Math.floor(1300/5);
-        let vitosPathy = 580;
+        let vitosPathy = 578;
         let vitosPosition = 0;
         for (let i = 0; i < arrayValue.length; i++){    
             mainCtx.clearRect(0, 0, 1200, mainCanvas.height)
             drawHouse();
             drawFood();
             drawMadDog();
-            console.log(quoteDisplayElement)
             if (quoteDisplayElement.childNodes[i].className === 'correct') {
             vitosPathx += (960/arrayQuote.length); 
             vitosPathy -= (60/arrayQuote.length);
